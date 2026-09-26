@@ -1,0 +1,26 @@
+{
+    "validUser":{
+        "username":"Admin",
+        "password":"Admin@12345"
+    },
+    "invalidPassword":{
+        "username":"Admin",
+        "password":"Admin@123"
+    },
+    "invalidUsername":{
+        "username":"Aadmin",
+        "password":"Admin@12345"
+    },
+    "missingUsername":{
+        "username":"",
+        "password":"Admin@12345"
+    },
+    "missingPassword":{
+        "username":"Admin",
+        "password":""
+    },
+    "missingBothFields":{
+        "username":"",
+        "password":""
+    }
+}
