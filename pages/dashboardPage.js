@@ -17,6 +17,8 @@ class DashboardPage {
     this.employeeDistributionByLocation = page.getByText(
       "Employee Distribution by Location",
     );
+    this.searchBar = page.locator("//input[@placeholder = 'Search']");
+    this.searchBarMenu = page.locator("//ul[@class = 'oxd-main-menu']");
     this.adminLink = page.getByRole("link", { name: "Admin" });
     this.pimLink = page.getByRole("link", { name: "PIM" });
     this.leaveLink = page.getByRole("link", { name: "Leave" });
@@ -42,9 +44,26 @@ class DashboardPage {
     await expect(this.leaveLink).toBeVisible();
     await expect(this.buzzLink).toBeVisible();
   }
+  async verifySearchFunctionality() {
+    await this.searchBar.pressSequentially("Performance", { delay: 50 });
+    const value = await this.searchBarMenu.textContent();
+    expect(value.includes("Performance")).toBeTruthy();
+  }
   async logoutFromApplication() {
     await this.profilePic.click();
     await this.logoutBtn.click();
+  }
+  async clickAdmin() {
+    await this.adminLink.click();
+  }
+  async clickPim() {
+    await this.pimLink.click();
+  }
+  async clickBuzz() {
+    await this.buzzLink.click();
+  }
+  async clickLeave() {
+    await this.leaveLink.click();
   }
 }
 module.exports = { DashboardPage };

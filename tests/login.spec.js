@@ -5,7 +5,7 @@ const loginTestData = require("../test_data/loginData.json");
 let loginPage;
 
 test.beforeEach("Navigate to OrangeHRM", async ({ page }) => {
-  await page.goto("auth/login");
+  await page.goto("auth/login", { waitUntil: "domcontentloaded" });
   loginPage = new LoginPage(page);
 });
 

@@ -10,7 +10,7 @@ test.describe("Testing the logout functionality of the application", () => {
   test("should logout from the application successfully", async ({ page }) => {
     loginPage = new LoginPage(page);
     dashboardPage = new DashboardPage(page);
-    await page.goto("auth/login");
+    await page.goto("auth/login", { waitUntil: "domcontentloaded" });
     await loginPage.loginToApplication(
       loginTestData.validUser.username,
       loginTestData.validUser.password,

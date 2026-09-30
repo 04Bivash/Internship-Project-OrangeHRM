@@ -7,7 +7,7 @@ let loginPage;
 let dashboardPage;
 
 test.beforeEach("Navitate to OrangeHRM Dashboard", async ({ page }) => {
-  await page.goto("auth/login");
+  await page.goto("auth/login", { waitUntil: "domcontentloaded" });
   loginPage = new LoginPage(page);
   dashboardPage = new DashboardPage(page);
   await loginPage.loginToApplication(
@@ -31,5 +31,8 @@ test.describe("Testing Dashboard Features", () => {
 
   test("should render the sidebar items", async ({ page }) => {
     await dashboardPage.verifySidebarItems();
+  });
+  test("should naviagate to the searched item", async ({ page }) => {
+    await dashboardPage.verifySearchFunctionality();
   });
 });
