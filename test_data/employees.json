@@ -1,0 +1,29 @@
+{
+  "createEmployee": {
+    "firstName": "Michael",
+    "middleName": "James",
+    "lastName": "Carter"
+  },
+
+  "existingEmployee": {
+    "firstName": "Bivash",
+    "middleName": "Man",
+    "lastName": "Tuladhar",
+    "employeeId": "0007"
+  },
+
+  "updateJobDetails": {
+    "original": {
+      "jobTitle": "Software Developer",
+      "subUnit": "Development",
+      "location": "Lalitpur Office",
+      "employmentStatus": "Part-Time"
+    },
+    "updated": {
+      "jobTitle": "QA Engineer",
+      "subUnit": "Quality Assurance",
+      "location": "Kathmandu Office",
+      "employmentStatus": "Full-Time"
+    }
+  }
+}
