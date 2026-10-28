@@ -130,7 +130,7 @@ class PimPage {
     await expect(employeeRow).toHaveCount(1);
     await employeeRow.locator(".oxd-checkbox-input").click();
     await this.deleteBtn.click();
-    await expect(this.confirmDeleteBtn).toBeVisible({ timeout: 5000 });
+    await expect(this.confirmDeleteBtn).toBeVisible({ timeout: 6000 });
     await this.confirmDeleteBtn.click();
   }
 

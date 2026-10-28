@@ -25,5 +25,12 @@
       "location": "Kathmandu Office",
       "employmentStatus": "Full-Time"
     }
+  },
+    "createUser": {
+    "employeeName": "Michael James Carter",
+    "username": "michael.carter.qa",
+    "userRole": "ESS",
+    "status": "Enabled",
+    "password": "YourTestPassword123!"
   }
 }

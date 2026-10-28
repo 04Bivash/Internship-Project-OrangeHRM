@@ -41,7 +41,9 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         screenshot: "only-on-failure",
         video: "retain-on-first-failure",
+        trace: "retain-on-failure",
       },
+      workers: 1,
     },
 
     {
