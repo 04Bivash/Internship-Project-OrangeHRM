@@ -5,6 +5,7 @@ const { PimPage } = require("../pages/pimPage");
 const { AdminPage } = require("../pages/adminPage");
 const loginTestData = require("../test_data/loginData.json");
 const empData = require("../test_data/employees.json");
+const { generateUniqueUsername } = require("../utils/generateUniqueUsername");
 
 let loginPage;
 let dashboardPage;
@@ -12,7 +13,7 @@ let pimPage;
 let adminPage;
 
 test.beforeEach(
-  "Navigate to OrangeHRM, login using valid credentials and go to Admin Page",
+  "Navigate to OrangeHRM, login using valid credentials",
   async ({ page }) => {
     await page.goto("auth/login", { waitUntil: "domcontentloaded" });
     loginPage = new LoginPage(page);
@@ -35,9 +36,7 @@ test.describe("Testing the functionality and features of the Admin Page", () => 
     await adminPage.verifyAdminPageLoaded();
   });
 
-  test("should create a system user for an existing employee", async ({
-    page,
-  }) => {
+  test("should perform CRUD operation on a system user", async ({ page }) => {
     await dashboardPage.clickPim();
     await pimPage.addEmployee(
       empData.createEmployee.firstName,
@@ -50,20 +49,30 @@ test.describe("Testing the functionality and features of the Admin Page", () => 
       empData.createEmployee.middleName,
       empData.createEmployee.lastName,
     );
+
     await pimPage.verifyEmployeeName(
       empData.createEmployee.firstName,
       empData.createEmployee.middleName,
       empData.createEmployee.lastName,
     );
     await dashboardPage.clickAdmin();
+    const username = generateUniqueUsername(
+      empData.createEmployee.user.username,
+    );
+    const employeeName = [
+      empData.createEmployee.firstName,
+      empData.createEmployee.middleName,
+      empData.createEmployee.lastName,
+    ].join(" ");
     await adminPage.addUser(
-      empData.createUser.userRole,
-      empData.createUser.employeeName,
-      empData.createUser.status,
-      empData.createUser.username,
-      empData.createUser.password,
-      empData.createUser.password,
+      empData.createEmployee.user.userRole,
+      employeeName,
+      empData.createEmployee.user.status,
+      username,
+      empData.createEmployee.user.password,
+      empData.createEmployee.user.password,
     );
     await adminPage.verifyEmployeeAdded();
+    await adminPage.searchEmployee(username);
   });
 });

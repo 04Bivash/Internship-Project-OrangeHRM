@@ -2,7 +2,13 @@
   "createEmployee": {
     "firstName": "Michael",
     "middleName": "James",
-    "lastName": "Carter"
+    "lastName": "Carter",
+    "user": {
+    "username": "michael.carter.qa",
+    "userRole": "ESS",
+    "status": "Enabled",
+    "password": "YourTestPassword123!"
+  }
   },
 
   "existingEmployee": {
@@ -25,12 +31,6 @@
       "location": "Kathmandu Office",
       "employmentStatus": "Full-Time"
     }
-  },
-    "createUser": {
-    "employeeName": "Michael James Carter",
-    "username": "michael.carter.qa",
-    "userRole": "ESS",
-    "status": "Enabled",
-    "password": "YourTestPassword123!"
   }
+
 }

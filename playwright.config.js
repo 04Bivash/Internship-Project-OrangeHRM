@@ -49,7 +49,7 @@ export default defineConfig({
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
-      workers: 2,
+      workers: 1,
     },
 
     {

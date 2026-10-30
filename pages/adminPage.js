@@ -57,6 +57,7 @@ class AdminPage {
     const employeeRow = this.page
       .getByRole("row")
       .filter({ hasText: username });
+    await expect(employeeRow).toHaveCount(1);
     await expect(employeeRow).toBeVisible();
   }
 }
