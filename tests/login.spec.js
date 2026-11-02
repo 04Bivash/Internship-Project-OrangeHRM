@@ -23,6 +23,7 @@ test.describe("Testing Login Functionality of the Application", () => {
       loginTestData.invalidPassword.username,
       loginTestData.invalidPassword.password,
     );
+    await loginPage.verifyInvalidCredentialsMessage();
   });
   test("should display an error message for an invalid username", async ({
     page,
@@ -31,6 +32,7 @@ test.describe("Testing Login Functionality of the Application", () => {
       loginTestData.invalidUsername.username,
       loginTestData.invalidUsername.password,
     );
+    await loginPage.verifyInvalidCredentialsMessage();
   });
   test("should display a validation message when username field is empty ", async ({
     page,
@@ -39,6 +41,7 @@ test.describe("Testing Login Functionality of the Application", () => {
       loginTestData.missingUsername.username,
       loginTestData.missingUsername.password,
     );
+    await loginPage.verifyUsernameRequired();
   });
   test("should display a validation message when password field is empty", async ({
     page,
@@ -47,6 +50,7 @@ test.describe("Testing Login Functionality of the Application", () => {
       loginTestData.missingPassword.username,
       loginTestData.missingPassword.password,
     );
+    await loginPage.verifyPasswordRequired();
   });
   test("should display a validation message when both fields are empty", async ({
     page,
@@ -55,5 +59,6 @@ test.describe("Testing Login Functionality of the Application", () => {
       loginTestData.missingBothFields.username,
       loginTestData.missingBothFields.password,
     );
+    await loginPage.verifyBothFieldsRequired();
   });
 });

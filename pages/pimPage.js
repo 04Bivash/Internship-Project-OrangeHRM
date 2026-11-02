@@ -128,10 +128,10 @@ class PimPage {
       .filter({ hasText: lastName });
 
     await expect(employeeRow).toHaveCount(1);
-    await employeeRow.locator(".oxd-checkbox-input").click();
-    await this.deleteBtn.click();
-    await expect(this.confirmDeleteBtn).toBeVisible({ timeout: 6000 });
+    await employeeRow.getByRole("button").last().click();
+    await expect(this.confirmDeleteBtn).toBeVisible({ timeout: 30000 });
     await this.confirmDeleteBtn.click();
+    await expect(this.page.getByText("Success", { exact: true })).toBeVisible();
   }
 
   async verifyEmployeeNotFound(firstName, middleName = "", lastName = "") {

@@ -7,6 +7,7 @@
     "username": "michael.carter.qa",
     "userRole": "ESS",
     "status": "Enabled",
+    "updatedStatus": "Disabled",
     "password": "YourTestPassword123!"
   }
   },

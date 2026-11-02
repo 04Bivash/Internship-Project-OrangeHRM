@@ -12,8 +12,11 @@ class LoginPage {
     this.passwordRequired = page.locator(
       "//label[text() = 'Password']/ancestor::div[contains(@class,'oxd-input-group')]//span",
     );
-    this.errorMsg = page.locator("//p[text()='Invalid credentials']");
+    this.invalidCredentialsErrorMsg = page.locator(
+      "//p[text()='Invalid credentials']",
+    );
     this.header = page.locator("//h5[text()='Login']");
+    this.accountDisabledMsg = page.locator("//p[text()='Account disabled']");
   }
   async loginToApplication(username, password) {
     await this.username.pressSequentially(username, { delay: 50 });
@@ -30,8 +33,11 @@ class LoginPage {
     await expect(this.usernameRequired).toBeVisible();
     await expect(this.passwordRequired).toBeVisible();
   }
-  async verifyErrorMessage() {
-    await expect(this.errorMsg).toBeVisible();
+  async verifyInvalidCredentialsMessage() {
+    await expect(this.invalidCredentialsErrorMsg).toBeVisible();
+  }
+  async verifyAccountDisabledMessage() {
+    await expect(this.accountDisabledMsg).toBeVisible();
   }
   async verifyHeaderVisibility() {
     await expect(this.header).toBeVisible();

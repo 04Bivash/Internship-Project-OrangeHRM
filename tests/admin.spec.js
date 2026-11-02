@@ -37,42 +37,123 @@ test.describe("Testing the functionality and features of the Admin Page", () => 
   });
 
   test("should perform CRUD operation on a system user", async ({ page }) => {
-    await dashboardPage.clickPim();
-    await pimPage.addEmployee(
-      empData.createEmployee.firstName,
-      empData.createEmployee.middleName,
-      empData.createEmployee.lastName,
-    );
-    await dashboardPage.clickPim();
-    await pimPage.searchByName(
-      empData.createEmployee.firstName,
-      empData.createEmployee.middleName,
-      empData.createEmployee.lastName,
-    );
+    test.setTimeout(120000);
+    try {
+      await dashboardPage.clickPim();
+      await pimPage.addEmployee(
+        empData.createEmployee.firstName,
+        empData.createEmployee.middleName,
+        empData.createEmployee.lastName,
+      );
+      await dashboardPage.clickPim();
+      await pimPage.searchByName(
+        empData.createEmployee.firstName,
+        empData.createEmployee.middleName,
+        empData.createEmployee.lastName,
+      );
 
-    await pimPage.verifyEmployeeName(
-      empData.createEmployee.firstName,
-      empData.createEmployee.middleName,
-      empData.createEmployee.lastName,
-    );
-    await dashboardPage.clickAdmin();
-    const username = generateUniqueUsername(
-      empData.createEmployee.user.username,
-    );
-    const employeeName = [
-      empData.createEmployee.firstName,
-      empData.createEmployee.middleName,
-      empData.createEmployee.lastName,
-    ].join(" ");
-    await adminPage.addUser(
-      empData.createEmployee.user.userRole,
-      employeeName,
-      empData.createEmployee.user.status,
-      username,
-      empData.createEmployee.user.password,
-      empData.createEmployee.user.password,
-    );
-    await adminPage.verifyEmployeeAdded();
-    await adminPage.searchEmployee(username);
+      await pimPage.verifyEmployeeName(
+        empData.createEmployee.firstName,
+        empData.createEmployee.middleName,
+        empData.createEmployee.lastName,
+      );
+      await dashboardPage.clickAdmin();
+      const username = generateUniqueUsername(
+        empData.createEmployee.user.username,
+      );
+      const employeeName = [
+        empData.createEmployee.firstName,
+        empData.createEmployee.middleName,
+        empData.createEmployee.lastName,
+      ].join(" ");
+      await adminPage.addUser(
+        empData.createEmployee.user.userRole,
+        employeeName,
+        empData.createEmployee.user.status,
+        username,
+        empData.createEmployee.user.password,
+        empData.createEmployee.user.password,
+      );
+      await adminPage.verifyEmployeeAdded();
+      await adminPage.searchUser(username);
+      await adminPage.verifyUserDetails(
+        username,
+        empData.createEmployee.user.userRole,
+        empData.createEmployee.user.status,
+      );
+
+      await dashboardPage.logoutFromApplication();
+      await loginPage.verifyHeaderVisibility();
+
+      await loginPage.loginToApplication(
+        username,
+        empData.createEmployee.user.password,
+      );
+      await dashboardPage.verifyDashboardLoaded();
+
+      await dashboardPage.logoutFromApplication();
+      await loginPage.verifyHeaderVisibility();
+
+      await loginPage.loginToApplication(
+        loginTestData.validUser.username,
+        loginTestData.validUser.password,
+      );
+      await dashboardPage.verifyDashboardLoaded();
+      await dashboardPage.clickAdmin();
+      await adminPage.searchUser(username);
+      await adminPage.editUser(
+        username,
+        empData.createEmployee.user.updatedStatus,
+      );
+      await adminPage.searchUser(username);
+      await adminPage.verifyUserDetails(
+        username,
+        empData.createEmployee.user.userRole,
+        empData.createEmployee.user.updatedStatus,
+      );
+      await dashboardPage.logoutFromApplication();
+      await loginPage.verifyHeaderVisibility();
+
+      await loginPage.loginToApplication(
+        username,
+        empData.createEmployee.user.password,
+      );
+      await loginPage.verifyAccountDisabledMessage();
+
+      await loginPage.loginToApplication(
+        loginTestData.validUser.username,
+        loginTestData.validUser.password,
+      );
+      await dashboardPage.verifyDashboardLoaded();
+      await dashboardPage.clickAdmin();
+      await adminPage.searchUser(username);
+      await adminPage.verifyUserDetails(
+        username,
+        empData.createEmployee.user.userRole,
+        empData.createEmployee.user.updatedStatus,
+      );
+      await adminPage.deleteUser(username);
+      await adminPage.searchUser(username);
+      await adminPage.verifyUserNotFound(username);
+    } finally {
+      await dashboardPage.clickPim();
+      await pimPage.searchByName(
+        empData.createEmployee.firstName,
+        empData.createEmployee.middleName,
+        empData.createEmployee.lastName,
+      );
+
+      await pimPage.verifyEmployeeName(
+        empData.createEmployee.firstName,
+        empData.createEmployee.middleName,
+        empData.createEmployee.lastName,
+      );
+
+      await pimPage.deleteEmployeeDetails(
+        empData.createEmployee.firstName,
+        empData.createEmployee.middleName,
+        empData.createEmployee.lastName,
+      );
+    }
   });
 });

@@ -28,6 +28,7 @@ class AdminPage {
       "//label[text()='Username']/parent::div/following-sibling::div/input",
     );
     this.searchBtn = page.getByRole("button", { name: "Search" });
+    this.confirmDeleteBtn = page.getByRole("button", { name: "Yes, Delete" });
   }
 
   async verifyAdminPageLoaded() {
@@ -51,14 +52,43 @@ class AdminPage {
   async verifyEmployeeAdded() {
     await expect(this.page.getByText("Success", { exact: true })).toBeVisible();
   }
-  async searchEmployee(username) {
+  async searchUser(username) {
     await this.searchUsername.fill(username);
     await this.searchBtn.click();
-    const employeeRow = this.page
+  }
+
+  async verifyUserDetails(username, userRole, status) {
+    const userRow = this.page
       .getByRole("row")
-      .filter({ hasText: username });
-    await expect(employeeRow).toHaveCount(1);
-    await expect(employeeRow).toBeVisible();
+      .filter({ hasText: username })
+      .filter({ hasText: userRole })
+      .filter({ hasText: status });
+
+    await expect(userRow).toHaveCount(1);
+    await expect(userRow).toBeVisible();
+    await expect(userRow).toContainText(username);
+    await expect(userRow).toContainText(userRole);
+    await expect(userRow).toContainText(status);
+  }
+
+  async editUser(username, updateItem) {
+    const userRow = this.page.getByRole("row").filter({ hasText: username });
+    await userRow.getByRole("button").last().click();
+    await this.status.click();
+    await this.page.getByText(updateItem, { exact: true }).click();
+    await this.saveBtn.click();
+  }
+
+  async deleteUser(username) {
+    const userRow = this.page.getByRole("row").filter({ hasText: username });
+    await userRow.getByRole("button").first().click();
+    await expect(this.confirmDeleteBtn).toBeVisible({ timeout: 30000 });
+    await this.confirmDeleteBtn.click();
+  }
+
+  async verifyUserNotFound(username) {
+    const userRow = this.page.getByRole("row").filter({ hasText: username });
+    await expect(userRow).toHaveCount(0);
   }
 }
 
