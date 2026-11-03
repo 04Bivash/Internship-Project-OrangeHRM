@@ -22,5 +22,15 @@
     "missingBothFields":{
         "username":"",
         "password":""
+    },
+    "essUser1":{
+        "username":"AlexBrown123",
+        "password":"AlexBrown@123",
+        "employeeName":"Alex Brown"
+    },
+    "essUser2":{
+        "username":"JaneSmith123",
+        "password":"JaneSmith@123",
+        "employeeName":"Jane Smith"
     }
 }
